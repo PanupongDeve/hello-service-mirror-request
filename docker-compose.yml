@@ -16,3 +16,18 @@ services:
   dubbugger:
     container_name: debugger
     image: panupongdeve/debugger
+  traefik:
+    container_name: traefik
+    image: traefik:latest
+    restart: always
+    ports:
+      - 8080:80
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.file.filename=/etc/traefik/dynamic_conf.yml
+      - --entrypoints.http.address=:80
+      - --serversTransport.insecureSkipVerify=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik/dynamic_conf.yml:/etc/traefik/dynamic_conf.yml

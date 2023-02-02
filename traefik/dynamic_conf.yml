@@ -1,0 +1,29 @@
+entrypoints:
+http:
+  routers:
+    router-http-uat-service:
+      service: uat-service
+      rule: "Host(`message-ylg.com`)"
+      entryPoints:
+        - http
+    with_mirroring:
+      service: with_mirroring
+      rule: "Host(`mirrored-ylg.com`)"
+      entryPoints:
+        - http
+  services:
+    with_mirroring:
+        mirroring:
+          service: "uat-service"
+          mirrors:
+            - name: "dev-service"
+              percent: 100
+    uat-service:
+      loadBalancer:
+        servers:
+          - url: "http://message-uat:8080"
+    dev-service:
+      loadBalancer:
+        servers:
+          - url: "http://message-dev:8080"
+        
