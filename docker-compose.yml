@@ -1,0 +1,18 @@
+services:
+  message-uat:
+    container_name: message-uat
+    image: panupongdeve/hello-service:0.0.1
+    environment:
+      - SERVER_NAME=MESSAGE_UAT
+    ports:
+      - 4040:8080
+  message-dev:
+    container_name: message-dev
+    image: panupongdeve/hello-service:0.0.1
+    environment:
+      - SERVER_NAME=MESSAGE_DEV
+    ports:
+      - 4041:8080
+  dubbugger:
+    container_name: debugger
+    image: panupongdeve/debugger
