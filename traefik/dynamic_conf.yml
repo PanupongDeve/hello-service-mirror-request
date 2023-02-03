@@ -6,7 +6,7 @@ http:
       rule: "Host(`message-ylg.com`)"
       entryPoints:
         - http
-    with_mirroring:
+    router-http-uat-service-with_mirroring:
       service: with_mirroring
       rule: "Host(`mirrored-ylg.com`)"
       entryPoints:
